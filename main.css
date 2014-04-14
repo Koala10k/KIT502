@@ -1,0 +1,32 @@
+body {
+    width: 100%;
+    margin: 0px auto;
+}
+
+h1{
+    text-align: center;
+}
+
+h1#people{
+    color: blue;
+}
+
+h1#index{
+    color: red;
+}
+
+div.people{
+    border-style:solid; 
+  	border-color:red; 
+  	float: left;
+  	text-align:center;
+}
+
+div.info{
+     border-style:solid; 
+  	border-color:red; 
+    background: black;
+    width: 300px;
+    height: 300px;
+    float: left;
+}
