@@ -13,9 +13,9 @@
         </script>
     </head>
     <body>
-        <h1 id="index">Online Survey</h1>
+        <h1 id="index">Home</h1>
         <?php include 'menu.php'; ?>
         <p>Introduction comes here</p>
-        <div id="cur_time"></div>
+        <div id="cur_time"></div> 
     </body>
 </html>
