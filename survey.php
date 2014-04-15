@@ -1,3 +1,4 @@
+<?php include('db_conn.php');?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +36,6 @@
 	</form>
 <?php
 	if(isset($_POST['sm'])){
-// 		include 'db_conn.php';
 		$name = $_POST['name'];
 		$email = $_POST['email'];
 		$gender = $_POST['gender'];

@@ -19,6 +19,10 @@ h1#survey{
 	color: green;
 }
 
+h1#contact{
+	color: black;
+}
+
 div.people{
     border-style:solid; 
   	border-color:red; 
