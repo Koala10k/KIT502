@@ -10,18 +10,6 @@ echo "
    <li><a href='./contact.php'><span>Contact</span></a></li>
 </ul>
 </div>
-<script>
-$('#cssmenu').prepend('<div id=\"menu-button\">Menu</div>');
-	$('#cssmenu #menu-button').on('click', function(){
-		var menu = $(this).next('ul');
-		if (menu.hasClass('open')) {
-			menu.removeClass('open');
-		}
-		else {
-			menu.addClass('open');
-		}
-	});
-</script>
 ";
-
+//$('#cssmenu li').css(\"backgroundColor\", \"black\");
 ?>

@@ -7,6 +7,7 @@
 <script>
         	var lastIndex = -1;
             $(document).ready(function () {
+				$('div.info').hide();
                 $('#cssmenu li:eq(1)').addClass('active');
                 $('div.people').on('click', function () {
                     switch ($(this).index()) {
