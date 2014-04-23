@@ -23,17 +23,20 @@ h1#contact{
 	color: black;
 }
 
+div.people img{
+	width: 400px;
+    height: 600px;
+}
+
 div.people{
     border-style:solid; 
   	border-color:red; 
   	float: left;
   	text-align:center;
-  	width: 400px;
-    height: 600px;
 }
 
 div.info{
-     border-style:solid; 
+    border-style:solid; 
   	border-color:red; 
     background: black;
     width: 300px;
