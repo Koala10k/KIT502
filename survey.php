@@ -59,7 +59,7 @@
 		<input type="submit" name="sm" value="Submit" />
 		<!-- validate form with Regex -->
 	</form>
-	<div>
+	<div id="query">
 	<form id="queryDB" method="post" action="">
 	<input type="submit" name="query" value="Query DB if you want :)" />
 	</form>
