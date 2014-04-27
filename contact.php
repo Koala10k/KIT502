@@ -7,7 +7,7 @@
 <script>
 	$(document).ready(function(){
 		$('#cssmenu li:eq(3)').addClass('active');
-		var colors = new Array("red", "blue", "green", "yellow", "purple");
+		var colors = new Array("red", "blue", "green", "yellow", "purple", "aqua", "lime", "orange");
 		var curColor = 0;
 		var li = $('.contact').first();
 		li.css('border-color',colors[curColor++%colors.length]);

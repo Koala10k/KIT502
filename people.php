@@ -9,7 +9,7 @@
             $(document).ready(function () {
 				$('div.info').hide();
                 $('#cssmenu li:eq(1)').addClass('active');
-                $('div.people').on('click', function () {
+                $('img').on('click', function () {
                     switch ($(this).index()) {
                         case 0:
                             $('div.info').css({"background-color": "yellow"});
@@ -21,7 +21,7 @@
                             lastIndex = 0;
                             break;
                         case 1:
-                            $('div.info').css({"background-color": "green"});
+                            $('div.info').css({"background-color": "aqua"});
                             $('div.info').html("Name: Marge_Simpson </br >"+
                                     "Role: First Mates </br >"+
                                     "Introduction: Nuts Bat!");
@@ -30,7 +30,7 @@
                             lastIndex = 1;
                             break;
                         case 2:
-                            $('div.info').css({"background-color": "blue"});
+                            $('div.info').css({"background-color": "lime"});
                             $('div.info').html("Name: Homer_Simpson </br >"+
                                     "Role: Chief </br >"+
                                     "Introduction: Crazy Chubby!");
@@ -46,17 +46,11 @@
 <body>
 	<h1 id="people">People</h1>
 	<?php include 'menu.php'; ?>
-	<div>
 		<div class="people">
 			<img alt="Bart_Simpson" src="./res/Bart_Simpson.png" />
-		</div>
-		<div class="people">
 			<img alt="Marge_Simpson" src="./res/Lisa_Simpson.png" />
-		</div>
-		<div class="people">
 			<img alt="Homer_Simpson" src="./res/Homer_Simpson.png" />
 		</div>
 		<div class="info"></div>
-	</div>
 </body>
 </html>

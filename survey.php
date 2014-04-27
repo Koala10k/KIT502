@@ -7,24 +7,6 @@
 <script>
 	$(document).ready(function(){
 		$('#cssmenu li:eq(2)').addClass('active');
-		// $('form').submit(function(){
-			// var info = "<ul>";
-			// if($("input[name='name']").val() == "") info+="<li>name can not be empty</li>";
-			// if($("input[name='email']").val() == "") info+="<li>email is required</li>";
-			// if($("input[name='gender']"))
-			 // $('#notice').html();
-			// return false;
-		// });
-		// $('#surveyForm').validate({ // plugin
-			// rule:{
-				// name: {
-					// required: true
-				// },
-				// email: {
-					// required: true
-				// }
-			// }
-		// });
 	});
 	
 </script>
@@ -32,7 +14,7 @@
 <body>
 	<h1 id="survey">Online Survey</h1>
 	<?php include 'menu.php'; ?>
-	<div id="notice"></div>
+	<div id="form">
 	<form id="surveyForm" method="post" action="">
 		Name:
 		<input type="text" name="name" autofocus="autofocus" pattern="[a-zA-Z_0-9]+" title="[a-zA-Z_0-9]+" required/><br />
@@ -59,6 +41,7 @@
 		<input type="submit" name="sm" value="Submit" />
 		<!-- validate form with Regex -->
 	</form>
+	</div>
 	<div id="query">
 	<form id="queryDB" method="post" action="">
 	<input type="submit" name="query" value="Query DB if you want :)" />
@@ -69,7 +52,7 @@
 	$query = "select * from `survey`";
 	$result = $mysqli->query($query);
 	
-	echo "<table border='1'>";
+	echo "<table id='query' border='1'>";
 	echo "<tr><th>Name</th><th>Email</th><th>Gender</th><th>State</th></tr>";
 	while($row=$result->fetch_array(MYSQLI_ASSOC)){
 		$name = $row['Name'];

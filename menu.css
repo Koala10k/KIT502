@@ -1,70 +1,62 @@
 #cssmenu {
-  background: #85d8ff;
-  margin: 0;
-  width: auto;
-  padding: 0;
-  line-height: 1;
-  display: block;
-  position: relative;
-}
-#cssmenu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: block;
-}
-#cssmenu ul:after {
-  content: ' ';
-  display: block;
-  font-size: 0;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-#cssmenu ul li {
-  margin: 0;
-  padding: 0;
-  display: block;
-  position: relative;
-}
-#cssmenu ul li a {
-  text-decoration: none;
-  display: block;
-  margin: 0;
-}
-#cssmenu > ul > li{
-  float: left;
-}
-#cssmenu > ul > li:after {
-  content: '';
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 0;
-  top: 0;
-  z-index: 0;
-  background: red;
-}
-#cssmenu > ul > li > a {
-  color: #ffffff;
-  padding: 15px 20px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 14px;
-  z-index: 2;
-  position: relative;
-}
-#cssmenu > ul > li:hover:after{
-	height: 100%;
-  background: gray;
-}
-#cssmenu > ul > li.active:after {
-  height: 100%;
-  background: aqua;
-}
-#cssmenu > ul > li:hover > a,
-#cssmenu > ul > li.active > a {
-  color: #000000;
+	background: #85d8ff;
+	margin: 0;
+	width: 100%;
+	padding: 0;
+	line-height: 1;
+	display: inline-block;
+	position: relative;
 }
 
+#cssmenu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+
+#cssmenu ul li {
+	margin: 0;
+	padding: 0;
+	display: block;
+	position: relative;
+}
+
+#cssmenu ul li a {
+	text-decoration: none;
+	display: block;
+	margin: 0;
+}
+
+#cssmenu>ul>li {
+	float: left;
+}
+
+#cssmenu>ul>li>a {
+	color: #ffffff;
+	padding: 15px 20px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-size: 14px;
+	z-index: 2;
+	position: relative;
+}
+
+#cssmenu>ul>li:hover {
+	height: 100%;
+	background: gray;
+}
+
+#cssmenu>ul>li.active {
+	height: 100%;
+	background: aqua;
+}
+
+#cssmenu>ul>li:hover>a {
+	color: orange;
+}
+
+#cssmenu>ul>li.active>a {
+	color: black;
+}
