@@ -13,6 +13,7 @@
         </script>
 </head>
 <body>
+<?php include 'header.php';	?>
 	<h1 id="index">Home</h1>
         <?php include 'menu.php'; ?>
         <div class="container">

@@ -12,6 +12,7 @@
 </script>
 </head>
 <body>
+<?php include 'header.php' ?>
 	<h1 id="survey">Online Survey</h1>
 	<?php include 'menu.php'; ?>
 	<div id="form">

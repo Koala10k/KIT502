@@ -20,6 +20,7 @@
 </script>
 </head>
 <body>
+<?php include 'header.php'?>
 	<h1 id="contact">Contact Us</h1>
 	<?php include 'menu.php'; ?>
 	<div id="contacts">

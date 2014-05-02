@@ -44,6 +44,7 @@
         </script>
 </head>
 <body>
+<?php include 'header.php'?>
 	<h1 id="people">People</h1>
 	<?php include 'menu.php'; ?>
 		<div class="people">
