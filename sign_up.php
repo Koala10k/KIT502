@@ -43,7 +43,31 @@ $( function(){
 		$("#notifier_pass_match").html("");
 	});
 
-	//TODO ajax validate duplicate username;
+	$("input[name='username']").focusout(function(){
+		$.ajax({
+				url: './async.php',
+				type: 'GET',
+				dateType: 'json',
+				data: {'TODO':'validate_username', 'name': $(this).val()},
+				beforeSend: function(jqXHR, settings ){
+					$("#notifier_username").html("validating...").css("color","blue");
+					},
+			success: function( data, textStatus, jqXHR){
+					var rst = data['rst'];
+					if(rst){
+						$("#notifier_username").html("this username is available :-)").css("color","green");
+						validated = true;
+					}else{
+						$("#notifier_username").html("this username has been used :-(, please try another one").css("color","red");
+						validated = false;
+					}
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					$("#notifier_username").html(textStatus).css("color","gray");
+				}
+		});
+		
+	});
 });
 
 </script>
@@ -53,10 +77,10 @@ $( function(){
 	<h1 id="sign_up">Sign Up</h1>
 	<?php include 'menu.php'; ?>
 	<form method="post">
-		Username: <input type="text" name="username" required autofocus /><br />
+		Username: <input type="text" name="username" required autofocus /><span id="notifier_username"></span><br />
 		Password: <input type="password" name="password" required /><br /><div id="notifier_pass"></div>
 		Retype Password: <input type="password" name="repassword" required /><span id="notifier_pass_match"></span><br />
-		Nick Name: <input type="name" name="name" required /><br /> 
+		Nick Name: <input type="text" name="name" required /><br /> 
 		Date of Birth: <input type="date" name="DOB" required readonly /><span id="notifier_date"></span><br /> 
 		Email: <input type="email" name="email" required /><br /> 
 		<input type="reset"	name="reset" value="reset" />
@@ -81,14 +105,13 @@ $( function(){
 	$created = (new Datetime())-> format('Y-m-d H:i:s');
 	$DOB = DateTime::createFromFormat('m-d-Y', $DOB)-> format('Y-m-d');
 	
-	echo $DOB." ".$created;
 	$sql = "INSERT INTO `users` (`Username`, `Password`, `Name`, `DOB`, `Email`, `Access`, `Created`) VALUES 
   		('$username', '$password', '$name', '$DOB', '$email', '$access', '$created')";
-	echo $sql;
 	if(!$mysqli->query($sql)){
 		die('Error: ' . $mysqli -> error."<br />");
 	}else{
 		$_SESSION['username']= $username;
+		$_SESSION['name']= $name;
 		header("Location: ./index.php");
 	}
 	include 'db_disconn.php';

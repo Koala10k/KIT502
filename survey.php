@@ -68,6 +68,7 @@
 		echo "</tr>";
 	}
 	echo "</table>";
+	include ('db_disconn.php');
 	}
 ?>
 	</div>
