@@ -32,5 +32,6 @@ The uncle is very happy that he can save a bit of money today. He happily told h
 		</p>
 	</div>
 	<div id="cur_time"></div>
+	<?php include 'footer.php'; ?>
 </body>
 </html>

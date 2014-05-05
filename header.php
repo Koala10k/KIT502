@@ -10,7 +10,7 @@ if(!isset($_SESSION['username'])){
 <input type='password' name='password' />
 <input type='submit' name='submit' value='Sign In' />
 </form>";
-	$header .="<span><a href='./sign_up.php'>Sign Up</a></span>";
+	$header .="<a href='./sign_up.php'><span>Sign Up</span></a>";
 }else{
 	$header .="Welcome ".$_SESSION['name'].
 			"!|<a href='./my_account.php'><span>My Account</span></a>

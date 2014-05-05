@@ -39,9 +39,48 @@
                             lastIndex = 2;
                             break;
                     }
-                })
+                            prevId = -1;
+                });
+                var prevId = -1;
+				$('.name').on('click', function(){
+						var id = $(this).prev().val();
+						$.ajax({
+							url: './async.php',
+							type: 'POST',
+							dataType: 'json',
+							data: {'TODO':'query_info', 'id':id},
+							beforeSend: function(jqXHR, settings){
+								alert('beforeSend');
+								},
+							success: function(data){
+								alert('success');
+								var dob = data['dob'];
+								var email = data['email'];
+								$('div.info').html("Name:"+$(this).val() +"</br >"+
+	                                    "Birthday: "+dob+"</br >"+
+	                                    "Email: "+email);
+                                if(prevId == id) $('div.info').toggle();
+                                else $('div.info').show();
+                                prevId = id;
+                                lastIndex = -1;
+								},
+							error: function(){
+								alert('error');
+							}
+							});
+						
+					});
+                
             });
         </script>
+        
+<?php 
+	include 'db_conn.php';
+	$sql = "select * from `users` where `access` = 1";
+	$result = $mysqli->query($sql);
+	
+	include 'db_disconn.php';
+?>
 </head>
 <body>
 <?php include 'header.php'?>
@@ -52,6 +91,19 @@
 			<img alt="Marge_Simpson" src="./res/Lisa_Simpson.png" />
 			<img alt="Homer_Simpson" src="./res/Homer_Simpson.png" />
 		</div>
+		<div>
+		<table border="1">
+		<tr><th>Name</th><th>Birthday</th><th>Email</th></tr>
+		<?php while($row = $result->fetch_array(MYSQLI_ASSOC)){?>
+				<tr><td><input type="hidden" value=<?php echo $row['ID']?> /><input type='button' class='name' value=<?php echo $row['Name'];?> /></td>
+				<td><?php echo $row['DOB']; ?></td>
+				<td><?php echo $row['Email']; ?></td></tr>
+		<?php }?>
+		</table>
+		</div>
+		
+		
 		<div class="info"></div>
+		<?php include 'footer.php'; ?>
 </body>
 </html>

@@ -40,7 +40,7 @@ div.info {
 	position: fixed;
 	width: 100%;
 	height: auto;
-	bottom: 0;
+	bottom: 20px;
 }
 
 div#contacts {
@@ -76,7 +76,7 @@ table#query {
 
 div#query {
 	position: fixed;
-	bottom: 0;
+	bottom: 20px;
 	left: 0;
 	text-align: center;
 	min-height: 70px;
@@ -130,4 +130,12 @@ p.marquee b{
 header {
 	text-align: right;
 	background-color: silver;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	background-color: aqua;
 }

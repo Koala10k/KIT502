@@ -89,5 +89,6 @@ if (isset($_POST['sm'])) {
 	include ('db_disconn.php');
 }
 ?>
+<?php include 'footer.php'; ?>
 </body>
 </html>
