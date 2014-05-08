@@ -17,7 +17,9 @@ if ($todo == 'validate_username') {
 	echo json_encode ( $rst );
 }else if($todo == 'query_info') {
 	include 'db_conn.php';
+
 	$id = $mysqli->real_escape_string($_GET ['id']);
+
 	
 	$sql = "SELECT `DOB`, `Email` FROM `users` WHERE `ID` = '$id'";
 	$result = $mysqli->query($sql);

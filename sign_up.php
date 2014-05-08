@@ -12,6 +12,7 @@
 var validated = true;
 $( function(){
 	$("input[name='DOB']").datepicker({ changeYear: true, changeMonth: true, yearRange: "1900:2050",dateFormat: "dd-mm-yy" });
+
 	$( "form#sign_up" ).submit(function( event ) {
 		if($("input[name='DOB']").val()==""){
 			$("#notifier_date").html('birthday is required!').css("color","red");
@@ -30,6 +31,7 @@ $( function(){
 			$("#notifier_pass").html('');
 	});
 	$("input[name='repassword']").focusout(function(){
+
 		if( $("input[name='pawd']").val() === $(this).val()){
 			$("#notifier_pass_match").html("");
 			validated = true;
@@ -111,7 +113,8 @@ $( function(){
 	$created = date('Y-m-d H:i:s');
 	$DOB = DateTime::createFromFormat('m-d-Y', $DOB) -> format('Y-m-d');
 	
-	$sql = "INSERT INTO `users` (`Username`, `Password`, `Name`, `DOB`, `Email`, `Access`, `Created`) VALUES ('$username', '$hash_pwd', '$name', '$DOB', '$email', '$access', '$created')";
+	$sql = "INSERT INTO `users` (`Username`, `Password`, `Name`, `DOB`, `Email`, `Access`, `Created`) VALUES 
+  		('$username', '$hash_pwd', '$name', '$DOB', '$email', '$access', '$created')";
 	if(!$mysqli->query($sql)){
 		echo "step1";
 		die('Error: ' . $mysqli -> error."<br />");
