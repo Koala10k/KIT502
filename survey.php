@@ -2,11 +2,110 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<?php include 'common_refer.php'; ?>
+<?php include 'common_refer.php'; 
+echo empty($_SESSION['username']);
+echo empty($_SESSION['name']);
+?>
 <title>Online Survey</title>
 <script>
+	var usa_states = [
+			{'value':'Florida','text':'Florida'},
+			{'value':'California','text':'California'},
+			{'value':'Hawaii','text':'Hawaii'}
+	];
+	
+	var au_states = [
+			{'value':'SA','text':'SA'},
+			{'value':'WA','text':'WA'},
+			{'value':'TAS','text':'TAS'}
+	];
+
+	var florida_city = [
+			{'value':'Miami','text':'Miami'},
+			{'value':'Orlando','text':'Orlando'},
+			{'value':'Cape Coral','text':'Cape Coral'}
+	];
+
+	var california_city = [
+			{'value':'San Francisco','text':'San Francisco'},
+			{'value':'Santa Rosa','text':'Santa Rosa'},
+			{'value':'Santa Ana','text':'Santa Ana'}		
+	];
+
+	var hawaii_city = [
+			{'value':'Honolulu','text':'Honolulu'},
+			{'value':'Kahului','text':'Kahului'},
+			{'value':'Kapaa','text':'Kapaa'}
+	];
+
+	var sa_city = [
+			{'value':'Adelaide','text':'Adelaide'},
+			{'value':'Koppio','text':'Koppio'},
+			{'value':'Whyalla','text':'Whyalla'}
+	];
+
+	var wa_city = [
+			{'value':'Perth','text':'Perth'},
+			{'value':'Albany','text':'Albany'},
+			{'value':'Geraldton','text':'Geraldton'}
+	];
+
+	var tas_city = [
+            {'value':'Hobart','text':'Hobart'},
+    		{'value':'Launceston','text':'Launceston'},
+    		{'value':'Devonport','text':'Devonport'}
+	];
+
+	var non_selected_html ='<option value="" style="display:none">--please select an item--</option>';
+	
+	
 	$(document).ready(function(){
 		$('#cssmenu li:eq(2)').addClass('active');
+		$("select[name='country']").change(function(){
+			var selected = $("select[name='country'] option:selected").val();
+			$("select[name='state'] option").remove();
+			$("select[name='state']").html(non_selected_html);
+			if(selected == 'USA'){
+				$.each(usa_states, function(i){
+				$("select[name='state']").append($("<option></option>").attr("value", usa_states[i]['value']).text(usa_states[i]['value']));
+				});
+			}else if(selected == 'Australia'){
+				$.each(au_states, function(i){
+					$("select[name='state']").append($("<option></option>").attr("value", au_states[i]['value']).text(au_states[i]['text']));
+					});
+			}
+		});
+
+		$("select[name='state']").change(function(){
+			var selected = $("select[name='state'] option:selected").val();
+			$("select[name='city']").empty();
+			$("select[name='city']").html(non_selected_html);
+			if(selected == 'Florida'){
+				$.each(florida_city, function(i){
+				$("select[name='city']").append($("<option></option>").attr("value", florida_city[i]['value']).text(florida_city[i]['value']));
+				});
+			}else if(selected == 'California'){
+				$.each(california_city, function(i){
+					$("select[name='city']").append($("<option></option>").attr("value", california_city[i]['value']).text(california_city[i]['text']));
+					});
+			}else if(selected == 'Hawaii'){
+				$.each(hawaii_city, function(i){
+					$("select[name='city']").append($("<option></option>").attr("value", hawaii_city[i]['value']).text(hawaii_city[i]['text']));
+					});
+			}else if(selected == 'SA'){
+				$.each(sa_city, function(i){
+					$("select[name='city']").append($("<option></option>").attr("value", sa_city[i]['value']).text(sa_city[i]['text']));
+					});
+			}else if(selected == 'WA'){
+				$.each(wa_city, function(i){
+					$("select[name='city']").append($("<option></option>").attr("value", wa_city[i]['value']).text(wa_city[i]['text']));
+					});
+			}else if(selected == 'TAS'){
+				$.each(tas_city, function(i){
+					$("select[name='city']").append($("<option></option>").attr("value", tas_city[i]['value']).text(tas_city[i]['text']));
+					});
+			}
+		});
 	});
 	
 </script>
@@ -17,26 +116,28 @@
 	<?php include 'menu.php'; ?>
 	<div id="form">
 	<form id="surveyForm" method="post" action="">
-		Name:
-		<input type="text" name="name" autofocus="autofocus" pattern="[a-zA-Z_0-9]+" title="[a-zA-Z_0-9]+" required/><br />
-		Email:
-		<input type="email" name="email" required/><br />
-		Gender:
+		<span style="color:red">*</span>Gender:
 		<input type="radio" name="gender" value="Male" required />Male
 		<input type="radio" name="gender" value="Female" />Female
 		<br />
-		State:
-		<select name="state" required>
-			<option value="" style="display:none">--please select an item--</option>
-			<option value="VIC">VIC</option>
-			<option value="NSW">NSW</option>
-			<option value="SA">SA</option>
-			<option value="WA">WA</option>
-			<option value="ACT">ACT</option>
-			<option value="NT">NT</option>
-			<option value="QLD">QLD</option>
-			<option value="TAS">TAS</option>
+		<span style="color:red">*</span>Country:
+		<select name="country" required>
+			<option value="" style="display: none">--please select an item--</option>
+			<option value="Australia">Australia</option>
+			<option value="USA">USA</option>
 		</select>
+		<br />
+		<span style="color:red">*</span>State:
+		<select name="state" required>
+		</select>
+		<br />
+		<span style="color:red">*</span>City:
+		<select name="city" required>
+		</select>
+		<br />
+		<span style="color:red">*</span>Satisfaction:
+		<input type="radio" name="satisfaction" value="Yes" required />Yes
+		<input type="radio" name="satisfaction" value="No" />No
 		<br />
 		<input type="reset" />
 		<input type="submit" name="sm" value="Submit" />
@@ -54,17 +155,23 @@
 	$result = $mysqli->query($query);
 	
 	echo "<table id='query' border='1'>";
-	echo "<tr><th>Name</th><th>Email</th><th>Gender</th><th>State</th></tr>";
+	echo "<tr><th>ID</th><th>Gender</th><th>State</th><th>Country</th><th>City</th><th>Satisfaction</th><th>Created</th></tr>";
 	while($row=$result->fetch_array(MYSQLI_ASSOC)){
-		$name = $row['Name'];
-		$email = $row['Email'];
+		$id = $row['ID'];
 		$gender = $row['Gender'];
 		$state = $row['State'];
+		$country = $row['Country'];
+		$city = $row['City'];
+		$satisfaction = $row['Satisfaction'];
+		$created = $row['Created'];
 		echo "<tr>";
-		echo "<td>$name</td>";
-		echo "<td>$email</td>";
+		echo "<td>$id</td>";
 		echo "<td>$gender</td>";
 		echo "<td>$state</td>";
+		echo "<td>$country</td>";
+		echo "<td>$city</td>";
+		echo "<td>$satisfaction</td>";
+		echo "<td>$created</td>";
 		echo "</tr>";
 	}
 	echo "</table>";
@@ -75,12 +182,15 @@
 <?php
 if (isset($_POST['sm'])) {
 	include ('db_conn.php');
-	$name = $mysqli->real_escape_string($_POST['name']);
-	$email = $mysqli->real_escape_string($_POST['email']);
+	
 	$gender = $mysqli->real_escape_string($_POST['gender']);
 	$state = $mysqli->real_escape_string($_POST['state']);
+	$country = $mysqli->real_escape_string($_POST['country']);
+	$city = $mysqli->real_escape_string($_POST['city']);
+	$satisfaction = $mysqli->real_escape_string($_POST['satisfaction']);
+	$created = date('Y-m-d H:i:s');
 
-	$sql = "INSERT INTO survey (Name, Email, Gender, State) VALUES ('$name', '$email', '$gender', '$state')";
+	$sql = "INSERT INTO `survey` (`Gender`, `State`, `Country`, `City`, `Satisfaction`, `Created`) VALUES ('$gender', '$state', '$country', '$city', '$satisfaction', '$created')";
 	if (!$mysqli -> query($sql)) {
 		die('Error: ' . $mysqli -> error."<br />");
 	}else{
@@ -89,5 +199,6 @@ if (isset($_POST['sm'])) {
 	include ('db_disconn.php');
 }
 ?>
+<?php include 'footer.php'; ?>
 </body>
 </html>

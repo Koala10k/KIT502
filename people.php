@@ -6,6 +6,7 @@
 <title>People</title>
 <script>
         	var lastIndex = -1;
+            var prevId = -1;
             $(document).ready(function () {
 				$('div.info').hide();
                 $('#cssmenu li:eq(1)').addClass('active');
@@ -39,9 +40,50 @@
                             lastIndex = 2;
                             break;
                     }
-                })
+                            prevId = -1;
+                });
+				$('.name').on('click', function(){
+						var id = $(this).prev().val();
+						if(prevId == id) $('div.info').toggle();
+						else{
+						var name = $(this).val();
+						$.ajax({
+							type: 'GET',
+							url: './async.php',
+							dataType: 'json',
+							data: {'TODO':'query_info', 'id':id},
+							beforeSend: function(jqXHR, settings){
+								},
+							success: function(data){
+								if(data.length != 1) {
+									alert('ajax data error');
+									return;
+								}
+								var dob = data[0]['dob'];
+								var email = data[0]['email'];
+								$('div.info').html("Name:"+ name +"</br >Birthday: "+dob+"</br >Email: "+email).css("background-color","white"); 
+                                $('div.info').show();
+                                prevId = id;
+                                lastIndex = -1;
+								},
+							error: function(jqXHR, textStatus, errorThrown ){
+								alert('error:'+textStatus+",errorThrown:"+errorThrown);
+							}
+							});
+						}
+						
+					});
+                
             });
         </script>
+        
+<?php 
+	include 'db_conn.php';
+	$sql = "SELECT * FROM `users` WHERE `access` = 1  ORDER BY `Name`";
+	$result = $mysqli->query($sql);
+	
+	include 'db_disconn.php';
+?>
 </head>
 <body>
 <?php include 'header.php'?>
@@ -52,6 +94,18 @@
 			<img alt="Marge_Simpson" src="./res/Lisa_Simpson.png" />
 			<img alt="Homer_Simpson" src="./res/Homer_Simpson.png" />
 		</div>
+		<div>
+		<table border="1">
+		<tr><th>Administrators</th></tr>
+		<?php while($row = $result->fetch_array(MYSQLI_ASSOC)){?>
+				<tr><td><input type="hidden" value=<?php echo $row['ID']?> /><input type='button' class='name' value=<?php echo $row['Name'];?> /></td>
+				</tr>
+		<?php }?>
+		</table>
+		</div>
+		
+		
 		<div class="info"></div>
+		<?php include 'footer.php'; ?>
 </body>
 </html>
