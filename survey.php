@@ -3,8 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <?php include 'common_refer.php'; 
-echo empty($_SESSION['username']);
-echo empty($_SESSION['name']);
 ?>
 <title>Online Survey</title>
 <script>

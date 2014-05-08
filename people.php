@@ -79,11 +79,8 @@
         
 <?php 
 	include 'db_conn.php';
-<<<<<<< HEAD
 	$sql = "SELECT * FROM `users` WHERE `access` = 1  ORDER BY `Name`";
-=======
-	$sql = "select * from `users` where `access` = 1";
->>>>>>> 7f2b99596b39dfab79339afcfda7384de9c6f067
+
 	$result = $mysqli->query($sql);
 	
 	include 'db_disconn.php';
@@ -100,18 +97,11 @@
 		</div>
 		<div>
 		<table border="1">
-<<<<<<< HEAD
 		<tr><th>Administrators</th></tr>
 		<?php while($row = $result->fetch_array(MYSQLI_ASSOC)){?>
 				<tr><td><input type="hidden" value=<?php echo $row['ID']?> /><input type='button' class='name' value=<?php echo $row['Name'];?> /></td>
 				</tr>
-=======
-		<tr><th>Name</th><th>Birthday</th><th>Email</th></tr>
-		<?php while($row = $result->fetch_array(MYSQLI_ASSOC)){?>
-				<tr><td><input type="hidden" value=<?php echo $row['ID']?> /><input type='button' class='name' value=<?php echo $row['Name'];?> /></td>
-				<td><?php echo $row['DOB']; ?></td>
-				<td><?php echo $row['Email']; ?></td></tr>
->>>>>>> 7f2b99596b39dfab79339afcfda7384de9c6f067
+
 		<?php }?>
 		</table>
 		</div>
