@@ -74,7 +74,6 @@ $( function(){
 			validated = false;
 			}else{
 				$("#notifier_date").html('');
-				validated = true;
 				}
 		if(!validated){ event.preventDefault(); return false;}
 		return true;
