@@ -82,7 +82,9 @@
 		}
 		?>
 	</div>
-	
+	<div id='video'>
+	<iframe width="853" height="480" src="//www.youtube-nocookie.com/embed/JSESlex8sSE" frameborder="0" allowfullscreen></iframe>
+	</div>
 	<?php include 'footer.php'; ?>
 </body>
 </html>

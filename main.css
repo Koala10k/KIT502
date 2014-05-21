@@ -40,27 +40,28 @@ div.info {
 	position: fixed;
 	width: 50%;
 	height: auto;
-	bottom: 20px;
+	bottom: 0;
 	right: 0;
 }
 
 div#contacts {
-	margin: 0 auto;
 	width: 80%;
+	margin: 0 auto;
+	display: block;
+	
 }
 
 div.contact {
 	border-style: ridge;
 	border-width: 10px;
 	float: left;
-	width: 354px;
+	width: 350px;
 	padding: 5px;
 }
 
 div#form {
 	margin: 0 auto;
 	width: 80%;
-	height: 500px;
 	text-align: center;
 }
 
@@ -77,7 +78,7 @@ table#query {
 
 div#query {
 	position: fixed;
-	bottom: 20px;
+	bottom: 0;
 	left: 0;
 	text-align: center;
 	min-height: 70px;
@@ -87,7 +88,7 @@ div#query {
 
 div#cur_time {
 	position: fixed;
-	bottom: 30px;
+	bottom: 0;
 	width: 100%;
 	text-align: center;
 	background-color: aqua;
@@ -95,7 +96,7 @@ div#cur_time {
 }
 
 div.container {
-    width: 50em;
+    width: 50%;
     height: 45em;
     margin: 0 auto;
     overflow: hidden;
@@ -103,6 +104,14 @@ div.container {
     position: relative;
     box-sizing: border-box;
     text-align: center;
+}
+
+div#video{
+	display:run-in;
+	width: 50%;
+	height: auto;
+	margin: 0 auto;
+	text-align: center;
 }
 
 p.marquee {
@@ -146,8 +155,7 @@ form#login_form{
 
 
 footer {
-	position: fixed;
-	bottom: 0;
+	display: list-item;
 	width: 100%;
 	text-align: center;
 	background-color: aqua;
