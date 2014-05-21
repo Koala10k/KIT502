@@ -38,9 +38,10 @@ div.info {
 	border-style: groove;
 	background: black;
 	position: fixed;
-	width: 100%;
+	width: 50%;
 	height: auto;
 	bottom: 20px;
+	right: 0;
 }
 
 div#contacts {
