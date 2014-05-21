@@ -128,9 +128,21 @@ p.marquee b{
 }
 
 header {
-	text-align: right;
 	background-color: silver;
+	position: absolute;
+	width: 100%;
+	top: 0;
 }
+
+div#sign_up{
+	float:right;
+}
+
+form#login_form{
+	float: left;
+}
+
+
 
 footer {
 	position: fixed;

@@ -141,7 +141,7 @@ $( function(){
 </head>
 <body>
 <?php include 'header.php'; 
-	if($session_access!=0)
+	if($session_access != 0)
 		header('Location: ./index.php');
 ?>
 	<h1 id="sign_up">Sign Up</h1>
