@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<?php include 'common_refer.php'; 
-?>
+<?php include 'common_refer.php'; ?>
 <title>Online Survey</title>
 <script>
 	var usa_states = [
@@ -54,54 +53,72 @@
     		{'value':'Devonport','text':'Devonport'}
 	];
 
-	var non_selected_html ='<option value="" style="display:none">--please select an item--</option>';
+	var non_selected_html ='<option value="">--please select an item--</option>';
 	
 	
 	$(document).ready(function(){
+		$("#msg").delay(1500).slideUp();
 		$('#cssmenu li:eq(2)').addClass('active');
+		$("div#state").hide();
+		$("div#city").hide();
+		if($("input[name='username']").length!=0){
+			$("input[name='username']").focus();
+		}
 		$("select[name='country']").change(function(){
 			var selected = $("select[name='country'] option:selected").val();
-			$("select[name='state'] option").remove();
-			$("select[name='state']").html(non_selected_html);
-			if(selected == 'USA'){
-				$.each(usa_states, function(i){
-				$("select[name='state']").append($("<option></option>").attr("value", usa_states[i]['value']).text(usa_states[i]['value']));
-				});
-			}else if(selected == 'Australia'){
-				$.each(au_states, function(i){
-					$("select[name='state']").append($("<option></option>").attr("value", au_states[i]['value']).text(au_states[i]['text']));
+			if(selected==""){
+				$("select[name='state']").val("");
+				$("select[name='state']").change();
+				$("div#state").fadeOut();
+			}else{
+				$("div#state").fadeIn();
+				$("select[name='state'] option").remove();
+				$("select[name='state']").html(non_selected_html);
+				if(selected == 'USA'){
+					$.each(usa_states, function(i){
+					$("select[name='state']").append($("<option></option>").attr("value", usa_states[i]['value']).text(usa_states[i]['value']));
 					});
+				}else if(selected == 'Australia'){
+					$.each(au_states, function(i){
+						$("select[name='state']").append($("<option></option>").attr("value", au_states[i]['value']).text(au_states[i]['text']));
+						});
+				}
 			}
 		});
 
 		$("select[name='state']").change(function(){
 			var selected = $("select[name='state'] option:selected").val();
-			$("select[name='city']").empty();
-			$("select[name='city']").html(non_selected_html);
-			if(selected == 'Florida'){
-				$.each(florida_city, function(i){
-				$("select[name='city']").append($("<option></option>").attr("value", florida_city[i]['value']).text(florida_city[i]['value']));
-				});
-			}else if(selected == 'California'){
-				$.each(california_city, function(i){
-					$("select[name='city']").append($("<option></option>").attr("value", california_city[i]['value']).text(california_city[i]['text']));
+			if(selected==""){
+				$("div#city").slideUp();
+			}else{
+				$("div#city").slideDown();
+				$("select[name='city']").empty();
+				$("select[name='city']").html(non_selected_html);
+				if(selected == 'Florida'){
+					$.each(florida_city, function(i){
+					$("select[name='city']").append($("<option></option>").attr("value", florida_city[i]['value']).text(florida_city[i]['value']));
 					});
-			}else if(selected == 'Hawaii'){
-				$.each(hawaii_city, function(i){
-					$("select[name='city']").append($("<option></option>").attr("value", hawaii_city[i]['value']).text(hawaii_city[i]['text']));
-					});
-			}else if(selected == 'SA'){
-				$.each(sa_city, function(i){
-					$("select[name='city']").append($("<option></option>").attr("value", sa_city[i]['value']).text(sa_city[i]['text']));
-					});
-			}else if(selected == 'WA'){
-				$.each(wa_city, function(i){
-					$("select[name='city']").append($("<option></option>").attr("value", wa_city[i]['value']).text(wa_city[i]['text']));
-					});
-			}else if(selected == 'TAS'){
-				$.each(tas_city, function(i){
-					$("select[name='city']").append($("<option></option>").attr("value", tas_city[i]['value']).text(tas_city[i]['text']));
-					});
+				}else if(selected == 'California'){
+					$.each(california_city, function(i){
+						$("select[name='city']").append($("<option></option>").attr("value", california_city[i]['value']).text(california_city[i]['text']));
+						});
+				}else if(selected == 'Hawaii'){
+					$.each(hawaii_city, function(i){
+						$("select[name='city']").append($("<option></option>").attr("value", hawaii_city[i]['value']).text(hawaii_city[i]['text']));
+						});
+				}else if(selected == 'SA'){
+					$.each(sa_city, function(i){
+						$("select[name='city']").append($("<option></option>").attr("value", sa_city[i]['value']).text(sa_city[i]['text']));
+						});
+				}else if(selected == 'WA'){
+					$.each(wa_city, function(i){
+						$("select[name='city']").append($("<option></option>").attr("value", wa_city[i]['value']).text(wa_city[i]['text']));
+						});
+				}else if(selected == 'TAS'){
+					$.each(tas_city, function(i){
+						$("select[name='city']").append($("<option></option>").attr("value", tas_city[i]['value']).text(tas_city[i]['text']));
+						});
+				}
 			}
 		});
 	});
@@ -109,30 +126,39 @@
 </script>
 </head>
 <body>
-<?php include 'header.php' ?>
+<?php include 'header.php'; ?>
 	<h1 id="survey">Online Survey</h1>
 	<?php include 'menu.php'; ?>
+	<?php if($session_access==1 || $session_access==2){?>
 	<div id="form">
 	<form id="surveyForm" method="post" action="">
 		<span style="color:red">*</span>Gender:
 		<input type="radio" name="gender" value="Male" required />Male
 		<input type="radio" name="gender" value="Female" />Female
 		<br />
+		<div id="country">
 		<span style="color:red">*</span>Country:
 		<select name="country" required>
-			<option value="" style="display: none">--please select an item--</option>
+			<option value="">--please select an item--</option>
 			<option value="Australia">Australia</option>
 			<option value="USA">USA</option>
 		</select>
 		<br />
+		</div>
+		<div id="state">
 		<span style="color:red">*</span>State:
 		<select name="state" required>
+		<option value="">--please select an item--</option>
 		</select>
 		<br />
+		</div>
+		<div id="city">
 		<span style="color:red">*</span>City:
 		<select name="city" required>
+		<option value="">--please select an item--</option>
 		</select>
 		<br />
+		</div>
 		<span style="color:red">*</span>Satisfaction:
 		<input type="radio" name="satisfaction" value="Yes" required />Yes
 		<input type="radio" name="satisfaction" value="No" />No
@@ -146,6 +172,9 @@
 	<form id="queryDB" method="post" action="">
 	<input type="submit" name="query" value="Query DB if you want :)" />
 	</form>
+	<?php }else{
+	echo "please login!!!";
+	}?>
 <?php 
 	if(isset($_POST['query'])){
 	include ('db_conn.php');
@@ -192,7 +221,12 @@ if (isset($_POST['sm'])) {
 	if (!$mysqli -> query($sql)) {
 		die('Error: ' . $mysqli -> error."<br />");
 	}else{
-		echo "Successfully submitted at" . date(" g:i:sa l j-n-Y");
+		echo '<div id="msg">';
+		echo '<p><span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+		    Successfully submitted at </p>';
+		echo '<p><b>';
+		echo date(" g:i:sa l j-n-Y");
+		echo '</b></p>';
 	}
 	include ('db_disconn.php');
 }

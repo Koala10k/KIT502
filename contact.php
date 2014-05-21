@@ -65,7 +65,7 @@
 		<div class="contact">
 			<h3>'.$state.'</h3>';
 			echo '
-			<ul>
+			<ul type="square">
 				';
 				foreach($details as $item => $content)	{
 				echo '

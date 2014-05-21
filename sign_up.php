@@ -3,30 +3,89 @@
 <head>
 <meta charset="utf-8" />
 <?php include 'common_refer.php'; ?>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  
-<title>Contact Us</title>
+<title>Sign Up</title>
 <script>
 var validated = true;
 $( function(){
-	$("input[name='DOB']").datepicker({ changeYear: true, changeMonth: true, yearRange: "1900:2050",dateFormat: "dd-mm-yy" });
-
-	$( "form#sign_up" ).submit(function( event ) {
-		if($("input[name='DOB']").val()==""){
-			$("#notifier_date").html('birthday is required!').css("color","red");
-			event.preventDefault();
-			return false;
+	$("#month").hide();
+	$("#day").hide();
+	$('select[name="month"]').change(function(){
+		if($(this).val()==""){
+			$('select[name="day"]').val("");
+			$("#day").hide();
+			}else{
+				$("#day").show();
+		var end_day;
+		var month = $('select[name="month"]').val();
+		var year = $('select[name="year"]').val();
+		if(month == 2){
+			if(isLeapYear(year))
+				end_day = 29;
+			else
+				end_day = 28;
+		}else if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+				end_day = 31;
+			else
+				end_day = 30;
+		var day = $('select[name="day"]').val();
+		$('select[name="day"]').empty();
+		$('select[name="day"]').append($("<option></option>").attr("value", "").text("please select an option"));
+		for(var i=1;i<=end_day;i++){
+			if(i==day)
+				$('select[name="day"]').append($("<option></option>").attr("selected","selected").attr("value", i).text(i));
+			else
+				$('select[name="day"]').append($("<option></option>").attr("value", i).text(i));
+			}
+			}
+    });
+	$('select[name="year"]').change(function(){
+		if($(this).val()==""){
+			$('select[name="month"]').val("");
+			$('select[name="month"]').change();
+			$("#month").hide();
+			}else{
+				$("#month").show();
+		var month = $('select[name="month"]').val();
+		if(month == 2){
+		var end_day;
+		var year = $('select[name="year"]').val();
+			if(isLeapYear(year))
+				end_day = 29;
+			else
+				end_day = 28;
+			var day = $('select[name="day"]').val();
+			$('select[name="day"]').empty();
+			$('select[name="day"]').append($("<option></option>").attr("value", "").text("please select an option"));
+			for(var i=1;i<=end_day;i++){
+				if(i==day)
+					$('select[name="day"]').append($("<option></option>").attr("selected","selected").attr("value", i).text(i));
+				else
+					$('select[name="day"]').append($("<option></option>").attr("value", i).text(i));
+				}
 		}
+			}
+	});
+
+	
+	
+	$( "form#sign_up" ).submit(function( event ) {
+		if($("select[name='year']").val()=="" || $("select[name='month']").val()==""  || $("select[name='day']").val()==""){
+			$("#notifier_date").html('birthday is required').css("color","red");
+			validated = false;
+			}else{
+				$("#notifier_date").html('');
+				validated = true;
+				}
 		if(!validated){ event.preventDefault(); return false;}
 		return true;
 	});
 	$("input[name='pawd']").focusout(function(){
-		var reg = /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*(\d).*(\d))(?=.*[!#$%&? "]).*$/gi;
+		var reg = /^[\S]{5,}$/gi;
+// 		var reg = /^.*(?=.{5,})(?=.*[a-zA-Z])(?=.*(\d).*(\d))(?=.*[!#$%&? "]).*$/gi;
 		var match = $(this).val().match(reg);
 		if(match==null)
-			$("#notifier_pass").html('password must contain at least<ul><li> 2 digits</li><li> 1 letter</li><li>1 character in the range of !#$%&? "</li><li>and 8 characters in total</li></ul>').css("color","red");
+// 			$("#notifier_pass").html('password must contain at least<ul><li> 2 digits</li><li> 1 letter</li><li>1 character in the range of !#$%&? "</li><li>and 5 characters in total</li></ul>').css("color","red");
+			$("#notifier_pass").html('password must <ul><li>has no space</li><li>contain at least 5 characters</li></ul>').css("color","red");
 		else
 			$("#notifier_pass").html('');
 	});
@@ -82,16 +141,54 @@ $( function(){
 </script>
 </head>
 <body>
-<?php include 'header.php'; ?>
+<?php include 'header.php'; 
+	if($session_access!=0)
+		header('Location: ./index.php');
+?>
 	<h1 id="sign_up">Sign Up</h1>
 	<?php include 'menu.php'; ?>
 	<form method="post" id="sign_up">
-		Username: <input type="text" name="username" required autofocus /><span id="notifier_username"></span><br />
-		Password: <input type="password" name="pawd" required /><div id="notifier_pass"></div>
+		Username: <input type="text" name="username" required autofocus pattern="^.*[a-zA-Z].*$" placeholder="at least 1 letter" /><span id="notifier_username"></span><br />
+		Password: <input type="password" name="pawd" required placeholder="5 chars, no space" /><div id="notifier_pass"></div>
 		Comfirm Password: <input type="password" name="repassword" required /><span id="notifier_pass_match"></span><br />
-		Nick Name: <input type="text" name="name" required /><br /> 
-		Date of Birth: <input type="date" name="DOB" required readonly /><span id="notifier_date"></span><br /> 
-		Email: <input type="email" name="email" /><br /> 
+		Name: <input type="text" name="namef" placeholder="first name" required /><input type="text" name="namel" placeholder="last name" required /><br />
+		Date of Birth:
+		<span id="year">Year:
+		<select name="year">
+<?php
+echo "<option value=''>please select an option</option>";
+for($i=1100;$i<=2014;$i++){
+		echo "<option value=".$i.">".$i."</option>";
+}
+?>
+		</select></span><span id="month">Month:
+		<select name="month">
+		<?php 
+		echo "<option value=''>please select an option</option>";
+		for($i=1;$i<=12;$i++){
+				echo "<option value=".$i.">".$i."</option>";
+		}
+		?>
+		</select></span><span id="day">Day:
+		<select name="day">
+		echo "<option value=''>please select an option</option>";
+		<?php 
+		if($month == 2){
+		if( !($year % 4) && ($year % 100) || !($year % 400))
+			$end_day_of_month = 29;
+		else
+			$end_day_of_month = 28;
+		}elseif($month == 1 || $month == 3 || $month == 5 || $month == 7 || $month == 8 || $month == 10 || $month == 12)
+			$end_day_of_month = 31;
+		else
+			$end_day_of_month = 30;
+		for($i=1;$i<=$end_day_of_month;$i++){
+				echo "<option value=".$i.">".$i."</option>";
+		}
+		?>
+		</select></span>
+		<span id="notifier_date"></span><br /> 
+		Email: <input type="email" name="email" /><br />
 		<input type="reset"	name="reset" value="reset" />
 		<input type="submit" name="sm" value="Sign Up" />
 	</form>
@@ -101,17 +198,20 @@ $( function(){
 	include 'db_conn.php';
 	$username = $mysqli -> real_escape_string($_POST['username']);
 	$password = $mysqli -> real_escape_string($_POST['pawd']);
-	$name = $mysqli -> real_escape_string($_POST['name']);
-	$DOB = $mysqli -> real_escape_string($_POST['DOB']);
+	$namef = $mysqli -> real_escape_string($_POST['namef']);
+	$namel = $mysqli -> real_escape_string($_POST['namel']);
+	$year = $mysqli -> real_escape_string($_POST['year']);
+	$month = $mysqli -> real_escape_string($_POST['month']);
+	$day = $mysqli -> real_escape_string($_POST['day']);
 	$email = $mysqli -> real_escape_string($_POST['email']);
 	
+	$name = implode(" ",array($namef, $namel));
+	$DOB = implode("-",array($year,$month,$day));;
 	//TODO server side validation
 	
 	$hash_pwd  = MD5($password);
-	$access = 0;
-// 	$created = (new Datetime())-> getTimestamp(); Mysql: data truncated for column 'Created' 
+	$access = 2;
 	$created = date('Y-m-d H:i:s');
-	$DOB = DateTime::createFromFormat('m-d-Y', $DOB) -> format('Y-m-d');
 	
 	$sql = "INSERT INTO `users` (`Username`, `Password`, `Name`, `DOB`, `Email`, `Access`, `Created`) VALUES 
   		('$username', '$hash_pwd', '$name', '$DOB', '$email', '$access', '$created')";
