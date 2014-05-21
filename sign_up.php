@@ -243,7 +243,7 @@ for($i=1100;$i<=2014;$i++){
 			$_SESSION['id'] = $rows[0];
 			$_SESSION['name'] = $rows[3];
 			$_SESSION['access'] = $rows[6];
-			header("location: ./index.php");
+			header("Location: ./index.php");
 	}
 	include 'db_disconn.php';
 }

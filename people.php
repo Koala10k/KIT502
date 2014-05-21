@@ -99,7 +99,7 @@
 		<table border="1">
 		<tr><th>Administrators</th></tr>
 		<?php while($row = $result->fetch_array(MYSQLI_ASSOC)){?>
-				<tr><td><input type="hidden" value=<?php echo $row['ID']?> /><input type='button' class='name' value=<?php echo $row['Name'];?> /></td>
+				<tr><td><input type="hidden" value=<?php echo $row['ID']?> /><input type='button' class='name' value=<?php echo $row['Username'];?> /></td>
 				</tr>
 
 		<?php }?>
